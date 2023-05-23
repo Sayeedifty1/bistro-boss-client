@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom";
 import Cover from "../../Shared/Cover/Cover";
 import MenuItem from "../../Shared/MenuItem/MenuItem";
 
 const MenuCategory = ({ items, title, img }) => {
 
     return (
-        <div className="pt-8">
+        <div className="pt-8 mb-10">
             {title && <Cover img={img} title={title}></Cover>}
             <div className="grid md:grid-cols-2 gap-10 my-16">
                 {
@@ -16,7 +17,7 @@ const MenuCategory = ({ items, title, img }) => {
 
             </div>
             <div className="text-center">
-                <button className="btn btn-outline border-0 border-b-4 mt-4 ">ORDER YOUR FAVOURITE FOOD</button>
+                <Link to={`/order/${title}`}><button className="btn btn-outline border-0 border-b-4">ORDER YOUR FAVOURITE FOOD</button></Link>
             </div>
 
         </div>
