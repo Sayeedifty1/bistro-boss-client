@@ -1,0 +1,8 @@
+.service-bg {
+    background-image: url('../../../assets/home/featured.jpg');
+    background-size: cover;
+    height: 512px;
+    display: flex;
+    align-items: center;
+
+}
