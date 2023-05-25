@@ -2,14 +2,14 @@ import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../providers/AuthProvider";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 const SignUp = () => {
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    const { createUser, updateUserProfile } = useContext(AuthContext);
-    const navigate = useNavigate();
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { createUser} = useContext(AuthContext);
+    // const navigate = useNavigate();
 
     const onSubmit = data => {
         console.log(data);
@@ -17,15 +17,15 @@ const SignUp = () => {
             .then(result => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
-                updateUserProfile(data.name, data.photoURL)
-                    .then(() => {
-                        console.log('user profile info updated')
-                        reset();
+                // updateUserProfile(data.name, data.photoURL)
+                //     .then(() => {
+                //         console.log('user profile info updated')
+                //         reset();
                         
-                        navigate('/');
+                //         navigate('/');
 
-                    })
-                    .catch(error => console.log(error))
+                //     })
+                //     .catch(error => console.log(error))
             })
     };
 

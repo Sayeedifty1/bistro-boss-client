@@ -1,12 +1,13 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
+import Swal from 'sweetalert2';
 import { AuthContext } from '../../providers/AuthProvider';
 
 
 const Login = () => {
-    const captchaRef = useRef(null);
+    
     const [disabled, setDisabled] = useState(true);
     const { signIn } = useContext(AuthContext);
 
@@ -25,11 +26,20 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                Swal.fire({
+                    title: 'User Login Successful',
+                    showClass: {
+                      popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                      popup: 'animate__animated animate__fadeOutUp'
+                    }
+                  })
             })
     }
 
-    const handleValidateCaptcha = () => {
-        const userValue = captchaRef.current.value;
+    const handleValidateCaptcha = (e) => {
+        const userValue = e.target.value;
         if (validateCaptcha(userValue)) {
             setDisabled(false);
             console.log("Captcha Matched");
@@ -71,8 +81,8 @@ const Login = () => {
                                 <label className="label">
                                     <LoadCanvasTemplate />
                                 </label>
-                                <input type="text" ref={captchaRef} name="captcha" placeholder="Type the captcha above" className="input input-bordered" />
-                                <button onClick={handleValidateCaptcha} className="btn btn-outline btn-xs">Validate</button>
+                                <input onBlur={handleValidateCaptcha}  type="text" name="captcha" placeholder="Type the captcha above" className="input input-bordered" />
+                                <button className="btn btn-outline btn-xs">Validate</button>
 
                             </div>
                             <div className="form-control mt-6">
