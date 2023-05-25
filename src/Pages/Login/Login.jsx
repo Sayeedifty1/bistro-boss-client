@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../providers/AuthProvider';
@@ -10,15 +10,19 @@ const Login = () => {
     
     const [disabled, setDisabled] = useState(true);
     const { signIn } = useContext(AuthContext);
+    const Navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from || "/";
 
     useEffect(() => {
         loadCaptchaEnginge(6);  // size of number captcha
     }, [])
 
 
-    const handleLogin = (e) => {
-        e.preventDefault();
-        const form = e.target;
+    const handleLogin = event => {
+        event.preventDefault();
+        const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
         console.log(email, password);
@@ -27,25 +31,25 @@ const Login = () => {
                 const user = result.user;
                 console.log(user);
                 Swal.fire({
-                    title: 'User Login Successful',
+                    title: 'User Login Successful.',
                     showClass: {
-                      popup: 'animate__animated animate__fadeInDown'
+                        popup: 'animate__animated animate__fadeInDown'
                     },
                     hideClass: {
-                      popup: 'animate__animated animate__fadeOutUp'
+                        popup: 'animate__animated animate__fadeOutUp'
                     }
-                  })
+                });
+                Navigate(from, { replace: true });
             })
     }
 
     const handleValidateCaptcha = (e) => {
-        const userValue = e.target.value;
-        if (validateCaptcha(userValue)) {
+        const user_captcha_value = e.target.value;
+        if (validateCaptcha(user_captcha_value)) {
             setDisabled(false);
-            console.log("Captcha Matched");
-        } else {
-            setDisabled(true);
-            console.log("Captcha Does Not Match");
+        }
+        else {
+            setDisabled(true)
         }
     }
 
@@ -82,7 +86,7 @@ const Login = () => {
                                     <LoadCanvasTemplate />
                                 </label>
                                 <input onBlur={handleValidateCaptcha}  type="text" name="captcha" placeholder="Type the captcha above" className="input input-bordered" />
-                                <button className="btn btn-outline btn-xs">Validate</button>
+                                
 
                             </div>
                             <div className="form-control mt-6">
