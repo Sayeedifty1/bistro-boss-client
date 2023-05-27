@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProvider";
-
+import { FaShoppingCart } from 'react-icons/fa'
 
 const NavBar = () => {
     const { user, logout } = useContext(AuthContext);
@@ -12,20 +12,25 @@ const NavBar = () => {
             })
             .catch(error => console.log(error))
     }
+
+    // loading data for the cart
+    
+
     const NavOptions = <>
-
-
-
         <li><Link to="/">HOME</Link></li>
         <li><Link to="/menu">OUR MENU</Link></li>
         <li><Link to="/order/salads">OUR SHOP</Link></li>
-
-
+        <li><Link><button className="btn btn-ghost gap-2">
+            <FaShoppingCart className="text-2xl relative" />
+            <div className="absolute bottom-4 right-4 text-xs badge bg-md bg-red-700">0</div>
+        </button>
+        </Link></li>
+        {/* <span className="text-white">Welcome {user.displayName}</span> */}
         {
-            user ? <> 
-            <span className="text-white">Welcome {user.displayName}</span>
-            <button className="btn btn-ghost" onClick={handleLogout}>Logout</button>
-               </> : <li><Link to="login">Login</Link></li>
+            user ?
+
+                <li><Link onClick={handleLogout}>Logout</Link></li>
+                : <li><Link to="login">Login</Link></li>
         }
 
     </>

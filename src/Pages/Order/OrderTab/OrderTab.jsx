@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css';
 import 'swiper/css/pagination';
 
+// TODO: add pagination
 const OrderTab = ({ items }) => {
     const pagination = {
         "clickable": true,
@@ -19,7 +20,7 @@ const OrderTab = ({ items }) => {
             <Swiper
                 pagination={pagination}
                 className="mySwiper"
-                modules={[pagination]}
+                modules={pagination}  //unwanted [] was here before and that was giving error mod is not defined
             >
                 <SwiperSlide>
                     <div className='grid md:grid-cols-3 gap-3 mb-16'>
