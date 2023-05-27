@@ -22,7 +22,7 @@ const NavBar = () => {
         <li><Link to="/">HOME</Link></li>
         <li><Link to="/menu">OUR MENU</Link></li>
         <li><Link to="/order/salads">OUR SHOP</Link></li>
-        <li><Link to="/"><button className="btn btn-ghost gap-2">
+        <li><Link to="/dashboard/mycart"><button className="btn btn-ghost gap-2">
             <FaShoppingCart className="text-2xl relative" />
             <div className="absolute bottom-4 right-4 text-xs p-1 rounded-full bg-md bg-red-700">+{cart?.length || 0}</div>
         </button>
