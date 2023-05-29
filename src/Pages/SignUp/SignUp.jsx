@@ -4,35 +4,54 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 
 
 const SignUp = () => {
 
-    const { register, handleSubmit, reset,  formState: { errors } } = useForm();
-    const { createUser , updateUserProfile} = useContext(AuthContext);
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const { createUser, updateUserProfile } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const onSubmit = data => {
-        console.log(data);
+
         createUser(data.email, data.password)
             .then(result => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
                 updateUserProfile(data.name, data.photoURL)
                     .then(() => {
-                        console.log('user profile info updated')
-                        reset();
-                        Swal.fire({
-                            title: 'User Created Successfully.',
-                            showClass: {
-                                popup: 'animate__animated animate__fadeInDown'
+                        const saveUser = {name: data.name, email: data.email, photoURL: data.photoURL}
+                        fetch('http://localhost:5000/users', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
                             },
-                            hideClass: {
-                                popup: 'animate__animated animate__fadeOutUp'
-                            }
-                        });
-                        
-                        navigate('/');
+                            body: JSON.stringify(saveUser)
+
+                        }) //!manage user info in database
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.insertedId) {
+                                    console.log('user profile info updated')
+                                    reset();
+                                    Swal.fire({
+                                        title: 'User Created Successfully.',
+                                        showClass: {
+                                            popup: 'animate__animated animate__fadeInDown'
+                                        },
+                                        hideClass: {
+                                            popup: 'animate__animated animate__fadeOutUp'
+                                        }
+                                    });
+
+                                    navigate('/');
+                                }
+
+                            })
+
+
+
 
                     })
                     .catch(error => console.log(error))
@@ -96,6 +115,7 @@ const SignUp = () => {
                             </div>
                         </form>
                         <p><small>Already have an account <Link to="/login">Login</Link></small></p>
+                        <SocialLogin></SocialLogin>
                     </div>
                 </div>
             </div>
