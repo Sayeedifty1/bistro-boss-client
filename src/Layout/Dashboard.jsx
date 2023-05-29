@@ -4,12 +4,14 @@ import {ImSpoonKnife} from 'react-icons/im';
 import {GoThreeBars} from 'react-icons/go';
 import {AiFillBook} from 'react-icons/ai';
 import useCart from "../hooks/useCart";
+import useAdmin from "../hooks/useAdmin";
 
 const Dashboard = () => {
     const [cart] = useCart();
-
-    // TODO: load data from server and check if user is admin
-    const isAdmin = true;
+    const [isAdmin]= useAdmin();
+    console.log(isAdmin)
+    //  load data from server and check if user is admin
+    // const isAdmin = false;
 
     return (
         <div className="drawer drawer-mobile ">
@@ -24,13 +26,13 @@ const Dashboard = () => {
                 <ul className="menu p-4 w-80">
 
                     {
-                        isAdmin ?
+                        isAdmin?
                             <>
                                 <li><NavLink to="/dashboard/adminhome"><FaHome></FaHome> Admin Home</NavLink></li>
                                 <li><NavLink to="/dashboard/reservations"><ImSpoonKnife></ImSpoonKnife> Add Items</NavLink></li>
                                 <li><NavLink to="/dashboard/history"><GoThreeBars></GoThreeBars> Manage Items</NavLink></li>
                                 <li><NavLink to="/dashboard/history"><AiFillBook></AiFillBook> Manage Bookings</NavLink></li>
-                                <li><NavLink to="/dashboard/users"><FaUsers></FaUsers> All Users</NavLink></li>
+                                <li><NavLink to="/dashboard/allusers"><FaUsers></FaUsers> All Users</NavLink></li>
                                
                             </>
                 :
