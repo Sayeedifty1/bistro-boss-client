@@ -40,7 +40,7 @@ const Dashboard = () => {
                 <>
                     <li><NavLink to="/dashboard/home"><FaHome></FaHome> User Home</NavLink></li>
                     <li><NavLink to="/dashboard/reservations"><FaCalendarAlt></FaCalendarAlt> Reservations</NavLink></li>
-                    <li><NavLink to="/dashboard/history"><FaWallet></FaWallet> Payment History</NavLink></li>
+                    <li><NavLink to="/dashboard/"><FaWallet></FaWallet> Payment History</NavLink></li>
                     <li>
                         <NavLink to="/dashboard/mycart"><FaShoppingCart></FaShoppingCart> My Cart
                             <span className="badge badge-secondary">+{cart?.length || 0}</span>
