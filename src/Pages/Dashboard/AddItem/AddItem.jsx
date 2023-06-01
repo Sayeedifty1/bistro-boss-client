@@ -1,4 +1,5 @@
 
+import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
@@ -49,6 +50,10 @@ const AddItem = () => {
 
     return (
         <div className="w-full px-10">
+            <Helmet>
+                <title>Bistro Boss | Add an Item</title>
+            </Helmet>
+
             <SectionTitle subHeading="What's new" heading="Add an item" ></SectionTitle>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-control w-full mb-4">
