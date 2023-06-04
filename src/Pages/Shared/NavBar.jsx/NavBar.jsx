@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 import { FaShoppingCart } from 'react-icons/fa'
 import useCart from "../../../hooks/useCart";
 import useAuth from "../../../hooks/useAuth";
+import useAdmin from "../../../hooks/useAdmin";
 
 const NavBar = () => {
     const { user, logout } = useAuth();
+    const [isAdmin]= useAdmin();
     const [cart] = useCart();
     const handleLogout = () => {
         logout()
@@ -23,6 +25,7 @@ const NavBar = () => {
         <li><Link to="/">HOME</Link></li>
         <li><Link to="/menu">OUR MENU</Link></li>
         <li><Link to="/order/salads">OUR SHOP</Link></li>
+        <li><Link to={isAdmin ? '/dashboard/adminhome' : '/dashboard/userhome'}>Dashboard</Link></li>
         <li><Link to="/dashboard/mycart"><button className="btn btn-ghost gap-2">
             <FaShoppingCart className="text-2xl relative" />
             <div className="absolute bottom-4 right-4 text-xs p-1 rounded-full bg-md bg-red-700">+{cart?.length || 0}</div>
